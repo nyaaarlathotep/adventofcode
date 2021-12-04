@@ -25,7 +25,19 @@ func GetSliceFromString(str string) []string {
 	return strings.Split(str, "")
 }
 
-func CharAt(str string, index int) string {
+func StringAt(str string, index int) string {
 	tmp := strings.Split(str, "")
 	return tmp[index]
+}
+
+func Get2dString(input string, sep1 string, sep2 string) [][]string {
+	input = strings.Replace(input, "  ", " ", -1)
+	lines := strings.Split(input, sep1)
+	tDString := make([][]string, 0)
+	for _, v := range lines {
+		v = strings.Trim(v, " ")
+		line := strings.Split(v, sep2)
+		tDString = append(tDString, line)
+	}
+	return tDString
 }
