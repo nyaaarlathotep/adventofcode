@@ -22,7 +22,6 @@ func fivePartOne(input string, isPartOne bool) int {
 				mark(&marker, begin, end)
 			}
 		} else {
-
 			if isPartTwoLine(begin, end) {
 				formatMarkTwo(&begin, &end)
 				markTwo(&marker, begin, end)
@@ -74,8 +73,10 @@ func mark(marker *[1000][1000]int, begin [2]int, end [2]int) {
 
 func markTwo(marker *[1000][1000]int, begin [2]int, end [2]int) {
 	if begin[0] < end[0] && begin[1] < end[1] {
+		j := begin[1]
 		for i := begin[0]; i <= end[0]; i++ {
-			(*marker)[i][i] = (*marker)[i][i] + 1
+			(*marker)[i][j] = (*marker)[i][j] + 1
+			j++
 		}
 	} else {
 		j := begin[1]
@@ -97,7 +98,9 @@ func formatBeginEnd(begin *[2]int, end *[2]int) {
 
 func formatMarkTwo(begin *[2]int, end *[2]int) {
 	if begin[0] > end[0] {
+		temp := *begin
 		*begin = *end
+		*end = temp
 	}
 }
 
