@@ -8,19 +8,40 @@ import (
 func SixPart(input string) int64 {
 
 	strFish := strings.Split(input, ",")
-	fishes := make([]Fish, 0)
+	fish := [...]int64{0, 0, 0, 0, 0, 0, 0, 0, 0}
 
 	for _, v := range strFish {
 		day, _ := strconv.Atoi(v)
-		fish := Fish{day, 0}
-		fishes = append(fishes, fish)
+		fish[day]++
 	}
-	var counter int64
-	rec2(fishes, &counter, true)
-
+	//var counter int64
 	//pool := fishLive2(&fishes, 200)
 	//return int64(len(pool))
-	return counter
+	return clever(fish, 256)
+}
+
+func clever(fish [9]int64, limit int) int64 {
+	newFish := [...]int64{0, 0, 0, 0, 0, 0, 0, 0, 0}
+	for i := 0; i < limit; i++ {
+		newFish[8] = fish[0]
+		newFish[7] = fish[8]
+		newFish[6] = fish[7] + fish[0]
+		newFish[5] = fish[6]
+		newFish[4] = fish[5]
+		newFish[3] = fish[4]
+		newFish[2] = fish[3]
+		newFish[1] = fish[2]
+		newFish[0] = fish[1]
+		fish = newFish
+		newFish = [...]int64{0, 0, 0, 0, 0, 0, 0, 0, 0}
+
+	}
+	var res int64
+	for _, v := range fish {
+		res = res + v
+
+	}
+	return res
 }
 
 func rec2(fishPool []Fish, counter *int64, first bool) {

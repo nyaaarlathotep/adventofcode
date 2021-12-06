@@ -21,3 +21,5 @@ Damn, I found why it's difficult. My heap! You bastard. Maybe I'd try some recur
 Oh, it cost too much time now. Maybe I'd try another way. 
 
 该函数执行完成耗时： 25m28.9910549s. The result is right though.
+
+Oh, thanks a lot reddit. I'm such a fool. 该函数执行完成耗时： 21.378µs It goes well this time.
