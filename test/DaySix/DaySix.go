@@ -16,21 +16,31 @@ func SixPart(input string) int64 {
 		fishes = append(fishes, fish)
 	}
 	var counter int64
-	rec2(fishes, 80, &counter)
+	rec2(fishes, &counter, true)
+
+	//pool := fishLive2(&fishes, 200)
+	//return int64(len(pool))
 	return counter
 }
 
-func rec2(fishPool []Fish, limit int, counter *int64) {
-	if fishPool[0].LiveDay() >= limit {
+func rec2(fishPool []Fish, counter *int64, first bool) {
+	if fishPool[0].LiveDay() >= 256 {
 		*counter = *counter + int64(len(fishPool))
 		return
 	}
-	duration := limit / 4
 	for _, fish := range fishPool {
 		singlePool := []Fish{fish}
-		afterPool := fishLive2(&singlePool, duration)
-		newSinglePool := []Fish{afterPool[0]}
-		rec2(newSinglePool, limit, counter)
+		var afterPool []Fish
+		if first {
+			afterPool = fishLive2(&singlePool, 200)
+
+		} else {
+			afterPool = fishLive2(&singlePool, 56)
+		}
+		for _, afterPoolFish := range afterPool {
+			newSinglePool := []Fish{afterPoolFish}
+			rec2(newSinglePool, counter, false)
+		}
 	}
 
 }
