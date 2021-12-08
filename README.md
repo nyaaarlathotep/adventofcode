@@ -18,8 +18,39 @@ Besides, I try to guess the part two's question, but I failed.
 
 Damn, I found why it's difficult. My heap! You bastard. Maybe I'd try some recursion.
 
-Oh, it cost too much time now. Maybe I'd try another way. 
+Oh, it cost too much time now. Maybe I'd try another way.
 
 该函数执行完成耗时： 25m28.9910549s. The result is right though.
 
 Oh, thanks a lot reddit. I'm such a fool. 该函数执行完成耗时： 21.378µs It goes well this time.
+
+## day seven
+
+I mistake today's puzzle, god! I thought there may be numbers don't show up which is much more confusing.
+
+该函数执行完成耗时： 2.7331ms
+
+here's my hint:
+```go
+// return whether string big contains string small. 
+// It allows a number of misCount letters missed in the big string. 
+func strContain(small string, big string, misCount int) bool {
+	sSlice := strings.Split(small, "")
+	bSlice := strings.Split(big, "")
+	for _, s := range sSlice {
+		get := false
+		for _, ss := range bSlice {
+			if s == ss {
+				get = true
+			}
+		}
+		if !get {
+			misCount--
+		}
+		if misCount < 0 {
+			return false
+		}
+	}
+	return true
+}
+```
