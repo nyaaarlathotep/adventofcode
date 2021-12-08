@@ -4,6 +4,8 @@ advent of code 2021 of nyaaar
 
 May I try to learn some GO by this chance. Hope I can hold on for a little longer.
 
+![Alt](https://repobeats.axiom.co/api/embed/9774c0942d69815f520f3eea28a9af134d5ed00b.svg "Repobeats analytics image")
+
 ## day four
 
 It's getting harder, I'm stuck in my foolishness.
