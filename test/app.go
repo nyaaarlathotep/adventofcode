@@ -13,7 +13,7 @@ func main() {
 	}
 
 	start := time.Now()
-	fmt.Println(ninePartOne(string(f)))
+	fmt.Println(ninePartTwo(string(f)))
 	elapsed := time.Now().Sub(start)
 	fmt.Println("该函数执行完成耗时：", elapsed)
 }
