@@ -62,3 +62,7 @@ func strContain(small string, big string, misCount int) bool {
 It's a little difficult to understand the puzzle today. What does a basin really mean? It can be more accurate.
 
 It's a pleasure to see how to build a data structure of set in GO. How ingenious!
+
+## day ten
+
+I find the \n is different in Windows and Linux.

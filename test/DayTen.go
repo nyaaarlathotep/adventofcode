@@ -7,50 +7,39 @@ import (
 
 func tenPartOne(input string) int {
 
-	lines := util.GetStringSlice(input, "\r\n")
+	lines := util.GetStringSlice(input, "\n")
 	score := 0
 	for _, line := range lines {
 		stack := DataStruct.NewStack()
 
 		for i := 0; i < len(line); i++ {
-			char:=string(line[i])
-			// )
+			char := string(line[i])
 			if char == ")" {
 				left := stack.Pop().(string)
 				if left != "(" {
-					score+=3
+					score += 3
 					break
 				}
-			}
-
-			// }
-			if char == "}" {
+			} else if char == "}" {
 				left := stack.Pop().(string)
 				if left != "{" {
-					score+=1197
+					score += 1197
 					break
 				}
-			}
-
-			// ]
-			if char == "]" {
+			} else if char == "]" {
 				left := stack.Pop().(string)
 				if left != "[" {
-					score+=57
+					score += 57
 					break
 				}
-			}
-
-			// >
-			if char == ">" {
+			} else if char == ">" {
 				left := stack.Pop().(string)
 				if left != "<" {
-					score+=25137
+					score += 25137
 					break
 				}
-			}else {
+			} else {
 				stack.Push(string(line[i]))
-				//stack.Traverse()
 			}
 		}
 	}
