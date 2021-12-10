@@ -66,3 +66,5 @@ It's a pleasure to see how to build a data structure of set in GO. How ingenious
 ## day ten
 
 I find the \n is different in Windows and Linux.
+
+It's easy to solve today's puzzle two. I'd say there's no other better way to learn a new language than this.
