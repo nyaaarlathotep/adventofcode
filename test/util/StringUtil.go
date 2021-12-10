@@ -41,3 +41,7 @@ func Get2dString(input string, sep1 string, sep2 string) [][]string {
 	}
 	return tDString
 }
+
+func GetStringSlice(input string,sep string)[]string{
+	return strings.Split(input, sep)
+}
