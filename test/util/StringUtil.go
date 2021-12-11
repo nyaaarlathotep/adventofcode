@@ -42,6 +42,19 @@ func Get2dString(input string, sep1 string, sep2 string) [][]string {
 	return tDString
 }
 
-func GetStringSlice(input string,sep string)[]string{
+func GetStringSlice(input string, sep string) []string {
 	return strings.Split(input, sep)
+}
+
+func TwoDStringToInt(s [][]string) [][]int {
+
+	res := make([][]int, 0)
+	for i := range s {
+		res = append(res, make([]int, 0))
+		for j := range s[0] {
+			v, _ := strconv.Atoi(s[i][j])
+			res[i] = append(res[i], v)
+		}
+	}
+	return res
 }
