@@ -34,6 +34,28 @@ func elevPartOne(input string) int {
 	return count
 }
 
+func elevPartTwo(input string) int {
+	fish := util.TwoDStringToInt(util.Get2dString(input, "\n", ""))
+	count := 0
+	for true {
+		count++
+		energyIncrease(&fish)
+		for in := range fish {
+			for jn := range (fish)[0] {
+				if fish[in][jn] == 10 {
+
+					flash(&fish, in, jn)
+
+				}
+			}
+		}
+		if partTwoCheck(&fish) {
+			return count
+		}
+	}
+	return count
+}
+
 func flash(fish *[][]int, i int, j int) {
 	(*fish)[i][j]++
 	//if i ==0 && j == 2 {
@@ -116,4 +138,20 @@ func checkFlash(fish *[][]int, count *int) {
 			}
 		}
 	}
+}
+
+func partTwoCheck(fish *[][]int) bool {
+	tempCount := 0
+	for i := range *fish {
+		for j := range (*fish)[0] {
+			if (*fish)[i][j] > 9 {
+				(*fish)[i][j] = 0
+				tempCount++
+			}
+		}
+	}
+	if tempCount == 100 {
+		return true
+	}
+	return false
 }

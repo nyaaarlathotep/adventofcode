@@ -68,3 +68,7 @@ It's a pleasure to see how to build a data structure of set in GO. How ingenious
 I find the \n is different in Windows and Linux.
 
 It's easy to solve today's puzzle two. I'd say there's no other better way to learn a new language than this.
+
+## day 11
+
+It's hard to debug for recursive func. Finally.
