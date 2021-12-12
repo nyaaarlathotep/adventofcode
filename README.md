@@ -72,3 +72,7 @@ It's easy to solve today's puzzle two. I'd say there's no other better way to le
 ## day 11
 
 It's hard to debug for recursive func. Finally.
+
+## day 12
+
+You just never read the puzzle clearly, right?
