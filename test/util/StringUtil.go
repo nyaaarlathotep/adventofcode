@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"strconv"
 	"strings"
+	"unicode"
 )
 
 func GetDecimalFromBinaryInt(binarySlice []int) int {
@@ -57,4 +58,25 @@ func TwoDStringToInt(s [][]string) [][]int {
 		}
 	}
 	return res
+}
+
+// IsUpper 判断字符 r 是否为大写格式
+func IsUpper(s string) bool {
+	for _, r := range s {
+		// 判断字符是否为大写
+		if unicode.IsUpper(r) {
+			return true
+		} else {
+			return false
+		}
+	}
+	return false
+}
+
+func CopyStringSlice(in []string) []string {
+	re := make([]string, 0)
+	for _, s := range in {
+		re = append(re, s)
+	}
+	return re
 }
