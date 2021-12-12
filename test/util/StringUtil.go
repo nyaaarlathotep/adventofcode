@@ -80,3 +80,21 @@ func CopyStringSlice(in []string) []string {
 	}
 	return re
 }
+
+func RemoveByLoop(slc []string) []string {
+	var res []string
+	for i := range slc {
+		flag := true
+		for j := range res {
+			if slc[i] == res[j] {
+				flag = false
+				break
+			}
+			if flag {
+				res = append(res, slc[i])
+			}
+		}
+
+	}
+	return res
+}

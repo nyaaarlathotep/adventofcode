@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"strings"
 	"test/DataStruct"
 	"test/util"
@@ -26,15 +25,9 @@ func twelvePartOne(input string) int {
 		endSpot.AddWay(beginSpot)
 
 	}
-	for _, v := range spots {
-		fmt.Println(v)
-	}
 	_, start := findSpot("start", spots)
 	paths := make([][]string, 0)
-	findWay(start, &paths, make([]string, 0))
-	for _, v := range paths {
-		fmt.Println(v)
-	}
+	PartTwoFindWay(start, &paths, make([]string, 0), false)
 	return len(paths)
 }
 
@@ -68,6 +61,39 @@ func findWay(t *DataStruct.LinkTable, paths *[][]string, path []string) {
 			}
 			if !hasBeen {
 				findWay(to, paths, path)
+			}
+		}
+
+	}
+	return
+}
+
+func PartTwoFindWay(t *DataStruct.LinkTable, paths *[][]string, path []string, hasTwice bool) {
+	path = append(path, t.Name)
+
+	if strings.Compare(t.Name, "end") == 0 {
+		*paths = append(*paths, util.CopyStringSlice(path))
+		return
+	}
+
+	for _, to := range t.Ptr {
+		if to.IsBig() {
+			PartTwoFindWay(to, paths, path, hasTwice)
+		} else {
+			if to.Name == "start" {
+				continue
+			}
+			hasBeenCount := 0
+			for _, pastSpot := range path {
+				if to.Name == pastSpot {
+					hasBeenCount++
+				}
+			}
+			if !hasTwice {
+				PartTwoFindWay(to, paths, path, hasBeenCount == 1)
+
+			} else if hasTwice && hasBeenCount < 1 {
+				PartTwoFindWay(to, paths, path, hasTwice)
 			}
 		}
 
