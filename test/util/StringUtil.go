@@ -2,6 +2,7 @@ package util
 
 import (
 	"bytes"
+	"fmt"
 	"strconv"
 	"strings"
 	"unicode"
@@ -97,4 +98,11 @@ func RemoveByLoop(slc []string) []string {
 
 	}
 	return res
+}
+
+func Print2DString(TDString [][]string, join string) {
+	for _, v := range TDString {
+		fmt.Println(strings.Join(v, join))
+	}
+
 }

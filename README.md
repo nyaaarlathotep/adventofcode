@@ -76,3 +76,7 @@ It's hard to debug for recursive func. Finally.
 ## day 12
 
 You just never read the puzzle clearly, right?
+
+## day 13
+
+OK, half of the puzzles have been done. Nice job boy.
