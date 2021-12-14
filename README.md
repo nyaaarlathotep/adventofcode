@@ -80,3 +80,9 @@ You just never read the puzzle clearly, right?
 ## day 13
 
 OK, half of the puzzles have been done. Nice job boy.
+
+## day 14
+
+I guess it will be overtime again, before I start today's puzzle.
+
+Oh, come on.
