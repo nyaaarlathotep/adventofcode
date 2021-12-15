@@ -88,3 +88,9 @@ I guess it will be overtime again, before I start today's puzzle.
 Oh, come on. 
 
 I get it, just like day6. Getting the abstractly similar objects together as a count num is the key. 
+
+## day 15
+
+Dijkstra, right?
+
+Again. How long will it take this time?
