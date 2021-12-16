@@ -94,3 +94,9 @@ I get it, just like day6. Getting the abstractly similar objects together as a c
 Dijkstra, right?
 
 Again. How long will it take this time?
+
+## day 16
+
+My brain is burning.
+
+Finally, I guess it's pipe. The whole afternoon is wasted.
