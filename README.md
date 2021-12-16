@@ -91,7 +91,7 @@ I get it, just like day6. Getting the abstractly similar objects together as a c
 
 ## day 15
 
-Dijkstra, right?
+**Dijkstra**, right?
 
 Again. How long will it take this time?
 
@@ -99,4 +99,9 @@ Again. How long will it take this time?
 
 My brain is burning.
 
-Finally, I guess it's pipe. The whole afternoon is wasted.
+Finally, I guess it's a **pipe** or so-called **queue**? The whole afternoon is wasted.
+
+lol, I just rewrote it, and it simply worked.
+
+Calm down. Maybe I need another day to figure it out. 
+Why I passed all the unit tests but can't pass the real users? Damn!

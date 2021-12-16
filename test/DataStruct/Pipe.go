@@ -1,30 +1,32 @@
 package DataStruct
 
-import "strconv"
+import (
+	"strconv"
+	"test/util"
+)
 
 type Pipe struct {
-	index      int
-	raw        string
 	cacheIndex int
 	cache      string
 }
 
 func NewPipe(input string) *Pipe {
 	p := &Pipe{
-		index:      1,
-		raw:        input,
 		cacheIndex: 0,
-		cache:      getFourBits(input[0:1]),
+		cache:      util.SixToTwo(input),
+	}
+	return p
+}
+
+func CacheNewPipe(cache string) *Pipe {
+	p := &Pipe{
+		cacheIndex: 0,
+		cache:      cache,
 	}
 	return p
 }
 
 func (p *Pipe) NextChar() string {
-	if p.cacheIndex == 4 {
-		p.cacheIndex = 0
-		p.cache = getFourBits(p.raw[p.index : p.index+1])
-		p.index++
-	}
 	res := string(p.cache[p.cacheIndex])
 	p.cacheIndex++
 	return res
@@ -42,10 +44,23 @@ func getFourBits(str string) string {
 	return bits
 }
 
-func (p *Pipe) GetChars(count int) string {
+func (p *Pipe) GetChars(length int) string {
 	res := ""
-	for i := 0; i < count; i++ {
+	for i := 0; i < length; i++ {
 		res = res + p.NextChar()
 	}
 	return res
+}
+
+func (p *Pipe) IsEnd() bool {
+	if p.cacheIndex >= len(p.cache) {
+		return true
+	} else {
+		for i := p.cacheIndex; i < len(p.cache); i++ {
+			if string(p.cache[i]) == "1" {
+				return false
+			}
+		}
+		return true
+	}
 }

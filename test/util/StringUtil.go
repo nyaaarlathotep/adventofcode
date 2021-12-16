@@ -106,3 +106,28 @@ func Print2DString(TDString [][]string, join string) {
 	}
 
 }
+
+func SixToTwo(input string) string {
+	convMap := make(map[string]string)
+	convMap["0"] = "0000"
+	convMap["1"] = "0001"
+	convMap["2"] = "0010"
+	convMap["3"] = "0011"
+	convMap["4"] = "0100"
+	convMap["5"] = "0101"
+	convMap["6"] = "0110"
+	convMap["7"] = "0111"
+	convMap["8"] = "1000"
+	convMap["9"] = "1001"
+	convMap["A"] = "1010"
+	convMap["B"] = "1011"
+	convMap["C"] = "1100"
+	convMap["D"] = "1101"
+	convMap["E"] = "1110"
+	convMap["F"] = "1111"
+	res := ""
+	for i := range input {
+		res = res + convMap[string(input[i])]
+	}
+	return res
+}
