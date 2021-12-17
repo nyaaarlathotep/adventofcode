@@ -105,3 +105,5 @@ lol, I just rewrote it, and it simply worked.
 
 Calm down. Maybe I need another day to figure it out. 
 Why I passed all the unit tests but can't pass the real users? Damn!
+
+fuuuuuuuuuuuuc, the bitSize! Why did it run successfully? There are no errors.
