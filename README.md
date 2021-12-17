@@ -107,3 +107,9 @@ Calm down. Maybe I need another day to figure it out.
 Why I passed all the unit tests but can't pass the real users? Damn!
 
 fuuuuuuuuuuuuc, the bitSize! Why did it run successfully? There are no errors.
+
+## day 17
+> If you're going to fire a highly scientific probe out of a super cool probe launcher,
+> 
+> you might as well do it with style.
+
