@@ -53,7 +53,7 @@ func (p *Pipe) GetChars(length int) string {
 }
 
 func (p *Pipe) IsEnd() bool {
-	if p.cacheIndex >= len(p.cache) {
+	if p.cacheIndex > len(p.cache) {
 		return true
 	} else {
 		for i := p.cacheIndex; i < len(p.cache); i++ {

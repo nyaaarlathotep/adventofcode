@@ -25,21 +25,21 @@ func sixteenPartOne(input string) int64 {
 }
 
 func handlePackage(pipe *DataStruct.Pipe, versions *[]int) int64 {
-	version, _ := strconv.ParseInt(pipe.GetChars(3), 2, 32)
+	version, _ := strconv.ParseInt(pipe.GetChars(3), 2, 64)
 	*versions = append(*versions, int(version))
-	strType, _ := strconv.ParseInt(pipe.GetChars(3), 2, 32)
+	strType, _ := strconv.ParseInt(pipe.GetChars(3), 2, 64)
 	if strType == 4 {
 		resNum := handleNum(pipe)
 		return resNum
 	} else {
 		lengthType := pipe.GetChars(1)
 		if lengthType == "0" {
-			length, _ := strconv.ParseInt(pipe.GetChars(15), 2, 32)
+			length, _ := strconv.ParseInt(pipe.GetChars(15), 2, 64)
 			resNum := handleLengthPact(pipe, versions, int(length), funcMap[int(strType)])
 			return resNum
 
 		} else if lengthType == "1" {
-			pkgNum, _ := strconv.ParseInt(pipe.GetChars(11), 2, 32)
+			pkgNum, _ := strconv.ParseInt(pipe.GetChars(11), 2, 64)
 			resNum := handleMultiPact(pipe, versions, int(pkgNum), funcMap[int(strType)])
 			return resNum
 		} else {
@@ -63,7 +63,7 @@ func handleNum(pipe *DataStruct.Pipe) int64 {
 		temp = pipe.GetChars(4)
 		resNum = resNum + temp
 	}
-	res, _ := strconv.ParseInt(resNum, 2, 32)
+	res, _ := strconv.ParseInt(resNum, 2, 64)
 	return res
 }
 

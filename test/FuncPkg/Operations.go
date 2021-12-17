@@ -22,21 +22,34 @@ func Multiplier(nums []int64) int64 {
 }
 
 func Min(nums []int64) int64 {
+	if len(nums) == 1 {
+		return nums[0]
+	}
 	var min int64 = math.MaxInt64
 	for _, v := range nums {
 		if v < min {
 			min = v
 		}
 	}
+	if min == math.MaxInt64 {
+		fmt.Println("????????")
+	}
 	return min
 }
 
 func Max(nums []int64) int64 {
+	if len(nums) == 1 {
+		return nums[0]
+	}
 	var max int64 = math.MinInt64
 	for _, v := range nums {
 		if v > max {
 			max = v
 		}
+	}
+	if max == math.MinInt64 {
+		fmt.Println("????????")
+
 	}
 	return max
 }
