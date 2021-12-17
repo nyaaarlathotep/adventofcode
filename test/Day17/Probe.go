@@ -47,7 +47,7 @@ func testHit(x int, y int, area *[][]int) bool {
 }
 
 func (p *Probe) Out(area *[][]int) bool {
-	if p.posX > (*area)[0][1] || p.posY < (*area)[1][1] {
+	if p.posX > (*area)[0][1] || p.posY < (*area)[1][0] {
 		return true
 	}
 	return false
