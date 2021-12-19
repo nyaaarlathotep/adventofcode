@@ -7,6 +7,10 @@ import (
 )
 
 func Eighteen(input string) int {
+	return partTwo(input)
+}
+
+func partOne(input string) int {
 	lines := strings.Split(input, "\n")
 	var root *node
 	for i, v := range lines {
@@ -29,6 +33,37 @@ func Eighteen(input string) int {
 	fmt.Println("res :")
 	printTree(root)
 	return calRes(root)
+}
+
+func partTwo(input string) int {
+	lines := strings.Split(input, "\n")
+	max := 0
+	for i := 0; i < len(lines)-1; i++ {
+		for j := i + 1; j < len(lines); j++ {
+			root := NewNode(nil, false)
+			leftNode := lineToTree(lines[i], root, true)
+			root.SetLeft(leftNode)
+			rightNode := lineToTree(lines[j], root, false)
+			root.SetRight(rightNode)
+			cleanTree(root)
+			score := calRes(root)
+			if score > max {
+				max = score
+			}
+			root = NewNode(nil, false)
+			leftNode = lineToTree(lines[i], root, true)
+			rightNode = lineToTree(lines[j], root, false)
+			root.SetLeft(rightNode)
+			root.SetRight(leftNode)
+			cleanTree(root)
+			score = calRes(root)
+			if score > max {
+				max = score
+			}
+		}
+	}
+
+	return max
 }
 
 func lineToTree(line string, father *node, isFatherLeft bool) *node {
