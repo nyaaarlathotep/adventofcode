@@ -113,3 +113,6 @@ fuuuuuuuuuuuuc, the bitSize! Why did it run successfully? There are no errors.
 > 
 > you might as well do it with style.
 
+## day 18
+
+I think it's tree. Hope I choose the right data struct.
