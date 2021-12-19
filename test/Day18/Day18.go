@@ -11,7 +11,6 @@ func Eighteen(input string) int {
 	var root *node
 	for i, v := range lines {
 		if root != nil {
-			printTree(root)
 		}
 		if i == 0 {
 			root = lineToTree(v, nil, true)
@@ -27,7 +26,9 @@ func Eighteen(input string) int {
 		}
 	}
 
-	return 0
+	fmt.Println("res :")
+	printTree(root)
+	return calRes(root)
 }
 
 func lineToTree(line string, father *node, isFatherLeft bool) *node {
@@ -79,7 +80,6 @@ func genTree(s *Stream, father *node, isFatherLeft bool) *node {
 func cleanTree(top *node) {
 
 	for true {
-		printTree(top)
 		exploded := testExplode(top, 1)
 		if exploded {
 			continue
@@ -212,4 +212,20 @@ func recPrint(n *node) {
 	}
 	fmt.Printf("]")
 
+}
+
+func calRes(n *node) int {
+	res := 0
+	if !n.hasLeftNode {
+		res = res + 3*n.LeftNum
+	} else {
+		res = res + 3*calRes(n.left)
+	}
+
+	if !n.hasRightNode {
+		res = res + 2*n.RightNum
+	} else {
+		res = res + 2*calRes(n.right)
+	}
+	return res
 }
