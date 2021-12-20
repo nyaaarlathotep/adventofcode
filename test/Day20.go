@@ -27,6 +27,7 @@ func day20(input string) int {
 				(*nextMap)[i][len((*nextMap)[0])-1] = 1
 			}
 		}
+
 		for i := 0; i < len(*numMap); i++ {
 			for j := 0; j < len((*numMap)[0]); j++ {
 
@@ -44,8 +45,6 @@ func day20(input string) int {
 			}
 		}
 		numMap = nextMap
-		printImage(numMap)
-		fmt.Println()
 	}
 	count := 0
 	for _, l := range *numMap {
@@ -56,10 +55,6 @@ func day20(input string) int {
 		}
 
 	}
-	// 5171
-	// 5185
-	// 5205
-	// 5359
 	return count
 }
 
@@ -88,7 +83,7 @@ func aroundNumStr(numMap [][]int, i int, j int, count int) string {
 	}
 
 	if i == len(numMap)-1 {
-		res = res + "000"
+		res = res + conStr+conStr+conStr
 	} else if j == 0 {
 		res = res + conStr + strconv.Itoa(numMap[i+1][j]) + strconv.Itoa(numMap[i+1][j+1])
 	} else if j == len(numMap[0])-1 {
