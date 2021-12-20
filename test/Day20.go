@@ -14,7 +14,7 @@ func day20(input string) int {
 	rule := parts[0]
 	imageMap := util.Get2dString(parts[1], "\r\n", "")
 	numMap := convertMap(&imageMap)
-	for count := 0; count < 2; count++ {
+	for count := 0; count < 50; count++ {
 		nextMap := getNextRes(numMap)
 		if count%2 == 0 {
 			for i := 0; i < len((*nextMap)[0]); i++ {

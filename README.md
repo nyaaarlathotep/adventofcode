@@ -118,3 +118,8 @@ fuuuuuuuuuuuuc, the bitSize! Why did it run successfully? There are no errors.
 I think it's tree. Hope I choose the right data struct.
 
 Recursions are insane. I can't tell the bugs between them.
+
+## day 20
+
+Don't hesitate, just try it.
+
