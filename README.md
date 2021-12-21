@@ -123,3 +123,9 @@ Recursions are insane. I can't tell the bugs between them.
 
 Don't hesitate, just try it.
 
+## day 21
+
+> Now that you're warmed up, it's time to play the real game.
+
+Nooooo, leave me alone.
+
