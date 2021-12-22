@@ -38,7 +38,7 @@ func PartTwo(input string) int {
 	cache = make(map[state]winState)
 	var winA, winB int
 	for i := 1; i <= 3; i++ {
-		s := state{isA, roll, i, 0, 0, posA+, posB}
+		s := state{isA, roll, i, 0, 0, posA , posB}
 		win := nextTurn(s)
 		winA += win.AWinCounter
 		winB += win.BWinCounter
