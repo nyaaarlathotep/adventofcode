@@ -73,7 +73,7 @@ func Day22PartOne(commands []command) int {
 }
 
 func Day22partTwo(commands []command) int {
-	area := [200000]plane{}
+	//area := [200000]plane{}
 	for _, command := range commands {
 		for i := command.x1 + 100000; i <= command.x2+100000; i++ {
 		}
@@ -92,7 +92,7 @@ type command struct {
 }
 
 type plane struct {
-	
+
 }
 
 func linesAndNewLine(lines *[][2]int, newStart int, newEnd int, on bool) *[][2]int {

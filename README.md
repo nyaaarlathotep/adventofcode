@@ -132,3 +132,7 @@ Nooooo, leave me alone.
 ## day 22
 
 All right, it's such a hard work again. 
+
+## day 23
+
+Lmao, I finished the part one by my hand. Maybe the part two wil be solved by this, too. 
