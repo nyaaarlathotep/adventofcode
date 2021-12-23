@@ -38,7 +38,7 @@ func Day22(input string) int {
 		})
 	}
 
-	return Day22PartOne(commands)
+	return Day22partTwo(commands)
 
 }
 
@@ -72,12 +72,63 @@ func Day22PartOne(commands []command) int {
 	return count
 }
 
-func Day22partTwo(commands []command) uint {
+func Day22partTwo(commands []command) int {
+	area := [200000]plane{}
+	for _, command := range commands {
+		for i := command.x1 + 100000; i <= command.x2+100000; i++ {
+		}
+	}
+	var counter int
 
-	return 0
+	for i := 0; i < 200000; i++ {
+	}
+
+	return counter
 }
 
 type command struct {
 	x1, x2, y1, y2, z1, z2 int
 	on                     bool
+}
+
+type plane struct {
+	
+}
+
+func linesAndNewLine(lines *[][2]int, newStart int, newEnd int, on bool) *[][2]int {
+	line := [20000]int{}
+	for _, l := range *lines {
+		for i := l[0]; i <= l[1]; i++ {
+			line[i] = 1
+		}
+	}
+	if on {
+		for i := newStart; i <= newEnd; i++ {
+			line[i] = 1
+		}
+	} else {
+		for i := newStart; i <= newEnd; i++ {
+			line[i] = 0
+		}
+	}
+
+	newStart = -1
+	var newLines [][2]int
+	for i := range line {
+		if line[i] == 0 {
+			if newStart == -1 {
+				continue
+			} else {
+				newLines = append(newLines, [2]int{newStart, i})
+				newStart = -1
+				continue
+			}
+		}
+		if newStart == -1 {
+			newStart = i
+		} else {
+			continue
+		}
+	}
+	return &newLines
 }
