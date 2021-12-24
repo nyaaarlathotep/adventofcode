@@ -13,7 +13,7 @@ func main() {
 	}
 
 	start := time.Now()
-	fmt.Println(Day22(string(f)))
+	fmt.Println(day24(string(f)))
 	elapsed := time.Now().Sub(start)
 	fmt.Println("该函数执行完成耗时：", elapsed)
 }

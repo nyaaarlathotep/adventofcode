@@ -131,3 +131,10 @@ func SixToTwo(input string) string {
 	}
 	return res
 }
+
+
+func IsInt(sus string) bool {
+	fmt.Println(sus)
+	return sus[0] >= '0' || sus[0] <= '9'
+}
+
