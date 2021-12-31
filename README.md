@@ -143,4 +143,4 @@ Maybe I'd give it up. It's a nightmare.
 
 ## day 25
 
-ok fine. Finally.
+ok fine. Finally. I need 7 more stars. It's time to look back.
