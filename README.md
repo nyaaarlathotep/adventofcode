@@ -136,3 +136,11 @@ All right, it's such a hard work again.
 ## day 23
 
 Lmao, I finished the part one by my hand. Maybe the part two wil be solved by this, too. 
+
+## day 24
+
+Maybe I'd give it up. It's a nightmare.
+
+## day 25
+
+ok fine. Finally.
