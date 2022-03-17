@@ -95,6 +95,8 @@ I get it, just like day6. Getting the abstractly similar objects together as a c
 
 Again. How long will it take this time?
 
+该函数执行完成耗时： 33m43.834441956s. lol, at least it works.
+
 ## day 16
 
 My brain is burning.
