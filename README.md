@@ -143,6 +143,9 @@ Lmao, I finished the part one by my hand. Maybe the part two wil be solved by th
 
 Maybe I'd give it up. It's a nightmare.
 
+https://github.com/dphilipson/advent-of-code-2021/blob/master/src/days/day24.rs .
+What a clever move! I thought it could be simplified, but I didn't try to dig it out. 
+
 ## day 25
 
 ok fine. Finally. I need 7 more stars. It's time to look back.
