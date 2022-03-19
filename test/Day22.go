@@ -4,131 +4,262 @@ import (
 	"fmt"
 	"regexp"
 	"strconv"
-	"strings"
+	"test/util"
 )
 
-func Day22(input string) int {
+type axis int
 
-	reg := regexp.MustCompile(`(-)*\d+`)
-	if reg == nil {
-		fmt.Println("MustCompile err")
-		return 0
-	}
-	lines := strings.Split(input, "\r\n")
-	commands := make([]command, 0)
+// Axis sugars
+const (
+	X axis = iota
+	Y
+	Z
+)
 
-	for _, line := range lines {
-		parts := strings.Split(line, " ")
-		isOn := parts[0] == "on"
-		res := reg.FindAllStringSubmatch(parts[1], -1)
-		x1, _ := strconv.Atoi(res[0][0])
-		x2, _ := strconv.Atoi(res[1][0])
-		y1, _ := strconv.Atoi(res[2][0])
-		y2, _ := strconv.Atoi(res[3][0])
-		z1, _ := strconv.Atoi(res[4][0])
-		z2, _ := strconv.Atoi(res[5][0])
-		commands = append(commands, command{
-			x1: x1,
-			x2: x2,
-			y1: y1,
-			y2: y2,
-			z1: z1,
-			z2: z2,
-			on: isOn,
-		})
-	}
+// Axis sugar
+var Axis = []axis{X, Y, Z}
 
-	return Day22partTwo(commands)
+type vec [3]int
 
+var null vec
+
+type cubo struct {
+	min, max vec
 }
 
-func Day22PartOne(commands []command) int {
-	tempCube := [101][101][101]int{}
-	for _, command := range commands {
-		for i := command.x1 + 50; i <= command.x2+50; i++ {
-			for j := command.y1 + 50; j <= command.y2+50; j++ {
-				for k := command.z1 + 50; k <= command.z2+50; k++ {
-					if command.on {
-						tempCube[i][j][k] = 1
-					} else {
-						tempCube[i][j][k] = 0
-					}
-				}
+var empty cubo
+
+func (c cubo) ok() bool {
+	λ := func(a axis) bool {
+		return c.min[a] <= c.max[a]
+	}
+	return λ(X) && λ(Y) && λ(Z)
+}
+
+func (c cubo) aabb(d cubo) bool {
+	λ := func(a axis) bool {
+		return c.min[a] <= d.max[a] && c.max[a] >= d.min[a]
+	}
+	return λ(X) && λ(Y) && λ(Z)
+}
+
+func (c cubo) contains(d cubo) bool {
+	λ := func(a axis) bool {
+		return c.min[a] <= d.min[a] && c.max[a] >= d.max[a]
+	}
+	return λ(X) && λ(Y) && λ(Z)
+}
+
+func (c cubo) trim(r cubo) cubo { // r(egion)
+	return cubo{
+		max(c.min, r.min),
+		min(c.max, r.max),
+	}
+}
+
+func (c cubo) vol() int64 {
+	λ := func(d axis) int64 {
+		return int64(1 + c.max[d] - c.min[d])
+	}
+	return λ(X) * λ(Y) * λ(Z)
+}
+
+// https://en.wikipedia.org/wiki/K-d_tree
+type node struct {
+	c     cubo // leaf only
+	a     axis
+	v     int
+	left  *node
+	right *node
+}
+
+func add(n *node, c cubo) *node {
+	switch {
+	case n.c.contains(c):
+		return n
+	case c.contains(n.c):
+		return &node{c: c}
+	}
+
+	for _, a := range Axis { // for X, Y, Z
+		switch {
+		case c.max[a] < n.c.min[a]:
+			return &node{a: a, v: c.max[a], left: &node{c: c}, right: n} // left leaf
+		case c.min[a] > n.c.max[a]:
+			return &node{a: a, v: c.min[a] - 1, left: n, right: &node{c: c}} // right leaf
+		default:
+			if v := n.c.min[a]; c.min[a] < v && c.max[a] >= v {
+				in, out := c, c
+				in.min[a], out.max[a] = v, v-1
+
+				return &node{a: a, v: v - 1, left: &node{c: out}, right: add(n, in)} // left leaf recurse right
+			}
+			if v := n.c.max[a]; c.max[a] > v && c.min[a] <= v {
+				in, out := c, c
+				in.max[a], out.min[a] = v, v+1
+
+				return &node{a: a, v: v, left: add(n, in), right: &node{c: out}} // recurse left right leaf
 			}
 		}
 	}
+	panic("add: unreachable")
+}
 
-	count := 0
-	for i := 0; i < 101; i++ {
-		for j := 0; j < 101; j++ {
-			for k := 0; k < 101; k++ {
-				if tempCube[i][j][k] == 1 {
-					count++
-				}
+func del(n *node, c cubo) *node {
+	switch {
+	case c.contains(n.c):
+		return nil
+	case !c.aabb(n.c):
+		return n
+	}
+
+	for _, a := range Axis { // for X, Y, Z
+		if v := c.min[a]; n.c.min[a] < v && n.c.max[a] >= v {
+			in, out := n.c, n.c
+			in.min[a], out.max[a] = v, v-1
+			left := &node{c: out}
+
+			right := del(&node{c: in}, c)
+			if right == nil {
+				return left
 			}
+			return &node{a: a, v: v - 1, left: left, right: right}
+		}
+		if v := c.max[a]; n.c.max[a] > v && n.c.min[a] <= v {
+			in, out := n.c, n.c
+			in.max[a], out.min[a] = v, v+1
+			right := &node{c: out}
+
+			left := del(&node{c: in}, c)
+			if left == nil {
+				return right
+			}
+			return &node{a: a, v: v, left: left, right: right}
 		}
 	}
-
-	return count
+	panic("del: unreachable")
 }
 
-func Day22partTwo(commands []command) int {
-	//area := [200000]plane{}
-	for _, command := range commands {
-		for i := command.x1 + 100000; i <= command.x2+100000; i++ {
+func leaf(n *node) bool {
+	return n.left == nil && n.right == nil
+}
+
+func reboot(n *node, on bool, c cubo) *node {
+	if n == nil {
+		if on {
+			n = &node{c: c}
 		}
-	}
-	var counter int
-
-	for i := 0; i < 200000; i++ {
+		return n
 	}
 
-	return counter
-}
-
-type command struct {
-	x1, x2, y1, y2, z1, z2 int
-	on                     bool
-}
-
-type plane struct {
-
-}
-
-func linesAndNewLine(lines *[][2]int, newStart int, newEnd int, on bool) *[][2]int {
-	line := [20000]int{}
-	for _, l := range *lines {
-		for i := l[0]; i <= l[1]; i++ {
-			line[i] = 1
+	min := func(a, b int) int {
+		if a < b {
+			return a
 		}
+		return b
 	}
+
+	max := func(a, b int) int {
+		if a > b {
+			return a
+		}
+		return b
+	}
+
+	if !leaf(n) {
+		left, right := c, c
+		left.max[n.a] = min(left.max[n.a], n.v)
+		right.min[n.a] = max(right.min[n.a], n.v+1)
+		if left.ok() {
+			n.left = reboot(n.left, on, left)
+		}
+		if right.ok() {
+			n.right = reboot(n.right, on, right)
+		}
+		if n.left == nil {
+			return n.right
+		}
+		if n.right == nil {
+			return n.left
+		}
+		return n
+	}
+
 	if on {
-		for i := newStart; i <= newEnd; i++ {
-			line[i] = 1
+		return add(n, c)
+	}
+	return del(n, c)
+}
+
+func recount(n *node) int64 {
+	switch {
+	case n == nil:
+		return 0
+	case leaf(n):
+		return n.c.vol()
+	default:
+		return recount(n.left) + recount(n.right)
+	}
+}
+
+func day22PartTwo(construct string) int {
+	cons := util.GetStringSlice(construct, "\n")
+	var p1, p2 *node
+	r := regexp.MustCompile(
+		`(on|off) x=(-?\d+)..(-?\d+),y=(-?\d+)..(-?\d+),z=(-?\d+)..(-?\d+)`,
+	)
+
+	for _, s := range cons {
+		matches := r.FindAllStringSubmatch(s, -1)[0]
+		args := make([]int, 6)
+		for i := 0; i < 6; i++ {
+			args[i], _ = strconv.Atoi(matches[i+2])
 		}
-	} else {
-		for i := newStart; i <= newEnd; i++ {
-			line[i] = 0
+		on := (matches[1] == "on")
+		c := cubo{
+			vec{args[0], args[2], args[4]},
+			vec{args[1], args[3], args[5]},
 		}
+
+		part1 := cubo{vec{-50, -50, -50}, vec{50, 50, 50}}
+		if sub := c.trim(part1); sub.ok() {
+			p1 = reboot(p1, on, sub)
+		}
+
+		p2 = reboot(p2, on, c)
 	}
 
-	newStart = -1
-	var newLines [][2]int
-	for i := range line {
-		if line[i] == 0 {
-			if newStart == -1 {
-				continue
-			} else {
-				newLines = append(newLines, [2]int{newStart, i})
-				newStart = -1
-				continue
-			}
+	fmt.Println(recount(p1)) // part1
+	fmt.Println(recount(p2)) // part2
+	return 0
+}
+
+func min(a, b vec) vec {
+	min := func(a, b int) int {
+		if a < b {
+			return a
 		}
-		if newStart == -1 {
-			newStart = i
-		} else {
-			continue
-		}
+		return b
 	}
-	return &newLines
+
+	return vec{
+		min(a[X], b[X]),
+		min(a[Y], b[Y]),
+		min(a[Z], b[Z]),
+	}
+}
+
+func max(a, b vec) vec {
+	max := func(a, b int) int {
+		if a > b {
+			return a
+		}
+		return b
+	}
+
+	return vec{
+		max(a[X], b[X]),
+		max(a[Y], b[Y]),
+		max(a[Z], b[Z]),
+	}
 }
