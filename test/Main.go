@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"test/Day19"
 	"time"
 )
 
@@ -13,7 +14,8 @@ func main() {
 	}
 
 	start := time.Now()
-	fmt.Println(day22PartTwo(string(f)))
+	Day19.Day19(string(f))
+	//fmt.Println(Day19.Day19(string(f)))
 	elapsed := time.Now().Sub(start)
 	fmt.Println("该函数执行完成耗时：", elapsed)
 }
